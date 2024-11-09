@@ -24,7 +24,21 @@ class ViewController: UIViewController {
     private lazy var sliderView: UISlider = {
         let slider = UISlider()
         
-
+        slider.addAction(
+            UIAction(handler: { [weak self] _ in
+                self?.animator.fractionComplete = CGFloat(self?.sliderView.value ?? 0)
+            }),
+            for: .valueChanged
+        )
+        
+        slider.addAction(
+            UIAction(handler: { [weak self] _ in
+                self?.animator.startAnimation()
+                self?.sliderView.value = 1
+            }),
+            for: [.touchUpInside, .touchUpOutside]
+        )
+        
         return slider
     }()
     
@@ -60,7 +74,12 @@ class ViewController: UIViewController {
     }
     
     private func setupAnimator() {
+        animator.pausesOnCompletion = true
         
+        animator.addAnimations {
+            self.squareView.frame.origin.x = self.view.frame.width - (self.view.layoutMargins.right * 2) - self.squareView.frame.width
+            self.squareView.transform = .identity.scaledBy(x: 1.5, y: 1.5).rotated(by: .pi / 2)
+        }
     }
 }
 
