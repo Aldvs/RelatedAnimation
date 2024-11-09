@@ -79,6 +79,11 @@ class ViewController: UIViewController {
         animator.addAnimations {
             self.squareView.frame.origin.x = self.view.frame.width - (self.view.layoutMargins.right * 2) - self.squareView.frame.width
             self.squareView.transform = .identity.scaledBy(x: 1.5, y: 1.5).rotated(by: .pi / 2)
+            self.squareView.backgroundColor = .red
+            self.squareView.layer.shadowColor = UIColor.black.cgColor
+            self.squareView.layer.shadowOffset = CGSize(width: 7, height: 7)
+            self.squareView.layer.shadowRadius = 20
+            self.squareView.layer.shadowOpacity = 0.97
         }
     }
 }
